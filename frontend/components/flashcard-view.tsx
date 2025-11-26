@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
@@ -15,13 +15,20 @@ interface Flashcard {
 interface FlashcardViewProps {
   cards: Flashcard[];
   onReset: () => void;
+  onComplete?: () => void;
 }
 
-export function FlashcardView({ cards, onReset }: FlashcardViewProps) {
+export function FlashcardView({ cards, onReset, onComplete }: FlashcardViewProps) {
   const t = useTranslations("Flashcards");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [finished, setFinished] = useState(false);
+
+  useEffect(() => {
+      if (finished && onComplete) {
+          onComplete();
+      }
+  }, [finished, onComplete]);
 
   const handleNext = () => {
     setIsFlipped(false);
@@ -101,4 +108,3 @@ export function FlashcardView({ cards, onReset }: FlashcardViewProps) {
     </div>
   );
 }
-

@@ -6,6 +6,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/src/i18n/routing';
+import { GamificationProvider } from "@/contexts/gamification-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,7 +53,9 @@ export default async function LocaleLayout({
               enableSystem
               disableTransitionOnChange
             >
-              {children}
+              <GamificationProvider>
+                {children}
+              </GamificationProvider>
             </ThemeProvider>
          </NextIntlClientProvider>
       </body>

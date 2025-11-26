@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000";
+const API_URL = "http://localhost:8001";
 
 export async function uploadDocument(file: File) {
   const formData = new FormData();

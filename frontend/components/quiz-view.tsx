@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -20,9 +20,10 @@ interface Question {
 interface QuizViewProps {
   questions: { questions: Question[] };
   onReset: () => void;
+  onComplete?: (score: number) => void;
 }
 
-export function QuizView({ questions: quizData, onReset }: QuizViewProps) {
+export function QuizView({ questions: quizData, onReset, onComplete }: QuizViewProps) {
   const t = useTranslations("Quiz");
   const questions = quizData.questions;
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -33,6 +34,13 @@ export function QuizView({ questions: quizData, onReset }: QuizViewProps) {
 
   const currentQuestion = questions[currentIndex];
   const progress = ((currentIndex) / questions.length) * 100;
+
+  // Effect to trigger onComplete when results are shown
+  useEffect(() => {
+      if (showResults && onComplete) {
+          onComplete(score);
+      }
+  }, [showResults, score, onComplete]);
 
   const handleOptionSelect = (option: string) => {
     if (isAnswered) return;
@@ -85,12 +93,12 @@ export function QuizView({ questions: quizData, onReset }: QuizViewProps) {
     <div className="w-full max-w-2xl mx-auto space-y-6">
       <div className="flex justify-between items-center text-sm text-muted-foreground mb-2">
         <span className="flex items-center gap-2">
-            Question {currentIndex + 1} / {questions.length}
+            {t('question')} {currentIndex + 1} / {questions.length}
             {currentQuestion.type === 'true_false' && (
                 <span className="text-xs bg-secondary px-2 py-0.5 rounded-full font-mono">Vrai/Faux</span>
             )}
         </span>
-        <span>Score: {score}</span>
+        <span>{t('current_score')}: {score}</span>
       </div>
       <Progress value={progress} className="h-2" />
 
@@ -110,7 +118,6 @@ export function QuizView({ questions: quizData, onReset }: QuizViewProps) {
             // Loose comparison for flexibility
             const isCorrect = option.toLowerCase() === currentQuestion.correct_answer.toLowerCase();
             
-            let variant = "outline";
             let className = "justify-start text-left h-auto py-4 px-6 text-base hover:bg-accent hover:text-accent-foreground transition-all";
             
             if (currentQuestion.type === 'true_false') {
