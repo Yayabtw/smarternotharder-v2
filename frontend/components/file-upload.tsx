@@ -1,19 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Upload, FileText, Loader2 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Upload, FileText, Loader2, FileUp } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 interface FileUploadProps {
   onUploadSuccess: (data: any) => void;
 }
 
 export function FileUpload({ onUploadSuccess }: FileUploadProps) {
+  const t = useTranslations("Upload");
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -21,13 +25,39 @@ export function FileUpload({ onUploadSuccess }: FileUploadProps) {
     }
   };
 
-  const handleUpload = async () => {
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const droppedFile = e.dataTransfer.files[0];
+      if (droppedFile.type === "application/pdf") {
+        setFile(droppedFile);
+      } else {
+        alert("Please upload a PDF file.");
+      }
+    }
+  };
+
+  const handleClick = () => {
+    inputRef.current?.click();
+  };
+
+  const handleUpload = async (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering the file input click
     if (!file) return;
 
     setUploading(true);
     try {
-      // Dynamically import to avoid SSR issues with FormData if any, though mostly fine here.
-      // Actually using the api lib function.
       const { uploadDocument } = await import("@/lib/api");
       const data = await uploadDocument(file);
       onUploadSuccess(data);
@@ -40,39 +70,69 @@ export function FileUpload({ onUploadSuccess }: FileUploadProps) {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto bg-card/50 border-dashed border-2">
-      <CardHeader>
-        <CardTitle className="text-center flex items-center justify-center gap-2">
-          <Upload className="w-5 h-5" /> Upload Course Material
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid w-full max-w-sm items-center gap-1.5 mx-auto">
-          <Label htmlFor="course-file">PDF Document</Label>
-          <Input id="course-file" type="file" accept=".pdf" onChange={handleFileChange} />
-        </div>
-        
-        {file && (
-            <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                <FileText className="w-4 h-4" /> {file.name}
-            </div>
+    <Card 
+        className={cn(
+            "w-full max-w-md mx-auto border-2 border-dashed transition-colors duration-200 cursor-pointer group",
+            isDragging ? "border-primary bg-primary/10" : "border-muted-foreground/25 hover:border-primary/50 hover:bg-accent/50",
+            "bg-card/50"
         )}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        onClick={handleClick}
+    >
+      <CardContent className="flex flex-col items-center justify-center py-10 space-y-4 text-center">
+        <Input 
+            ref={inputRef}
+            id="course-file" 
+            type="file" 
+            accept=".pdf" 
+            onChange={handleFileChange} 
+            className="hidden"
+        />
+        
+        <div className={cn(
+            "p-4 rounded-full transition-all duration-200",
+            isDragging ? "bg-primary/20 scale-110" : "bg-muted group-hover:bg-primary/10"
+        )}>
+            {file ? (
+                <FileText className="w-8 h-8 text-primary" />
+            ) : (
+                <Upload className="w-8 h-8 text-muted-foreground group-hover:text-primary" />
+            )}
+        </div>
 
-        <Button 
-            className="w-full" 
-            onClick={handleUpload} 
-            disabled={!file || uploading}
-        >
-          {uploading ? (
-            <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Processing...
-            </>
-          ) : (
-            "Analyze Document"
-          )}
-        </Button>
+        <div className="space-y-1">
+            <h3 className="font-semibold text-lg">
+                {file ? file.name : t('title')}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+                {file ? (
+                    <span className="text-primary font-medium">Ready to analyze</span>
+                ) : (
+                    t('drag_drop')
+                )}
+            </p>
+        </div>
+
+        {file && (
+            <Button 
+                className="w-full max-w-xs mt-4" 
+                onClick={handleUpload} 
+                disabled={uploading}
+            >
+            {uploading ? (
+                <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Processing...
+                </>
+            ) : (
+                <>
+                    <FileUp className="mr-2 h-4 w-4" /> {t('analyze')}
+                </>
+            )}
+            </Button>
+        )}
       </CardContent>
     </Card>
   );
 }
-

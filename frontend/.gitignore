@@ -39,3 +39,41 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# cache 
+.next/cache/ 
+
+# logs
+logs/
+*.log
+
+# coverage
+coverage/
+coverage-final.json
+.nyc_output/
+
+# system files
+.DS_Store
+.idea/
+.vscode/
+.cursor/
+
+# python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+

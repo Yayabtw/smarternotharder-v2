@@ -1,0 +1,69 @@
+{
+  "HomePage": {
+    "title": "Domina i tuoi Corsi con l'IA",
+    "subtitle": "Carica, Analizza, Ripassa.",
+    "description": "Ottieni riassunti istantanei, concetti chiave e quiz personalizzati per ricordare di più in meno tempo.",
+    "upload_button": "Analizza documento",
+    "processing": "Analisi in corso...",
+    "processing_desc": "Estrazione dei concetti e valutazione della difficoltà.",
+    "language_label": "Lingua",
+    "tab_analysis": "Analisi",
+    "tab_chat": "Chat IA",
+    "tab_quiz": "Quiz",
+    "tab_planning": "Pianificazione",
+    "tab_flashcards": "Flashcards",
+    "generating_quiz": "Generazione del quiz personalizzato...",
+    "quiz_error": "Impossibile generare il quiz. Riprova.",
+    "generating_flashcards": "Generazione flashcards...",
+    "flashcards_error": "Impossibile generare flashcards."
+  },
+  "Upload": {
+    "title": "Carica Materiale (PDF)",
+    "drag_drop": "Trascina il file qui o clicca per selezionare",
+    "or_click": "o clicca per selezionare",
+    "analyze": "Analizza",
+    "processing": "Elaborazione...",
+    "upload_failed": "Caricamento fallito. Riprova."
+  },
+  "Analysis": {
+    "difficulty": "Difficoltà",
+    "study_time": "Tempo di studio",
+    "concepts": "Concetti",
+    "summary": "Riassunto",
+    "start_quiz": "Avvia Quiz IA"
+  },
+  "Quiz": {
+    "title": "Quiz Generato",
+    "score": "Il tuo Punteggio",
+    "current_score": "Punteggio Attuale",
+    "question": "Domanda",
+    "try_another": "Prova un altro documento",
+    "next": "Prossima Domanda",
+    "finish": "Termina Quiz",
+    "explanation": "Spiegazione"
+  },
+  "Chat": {
+    "title": "Chatta con il tuo Documento",
+    "placeholder": "Fai una domanda sul corso...",
+    "send": "Invia",
+    "empty_state": "Inizia la conversazione! Chiedi qualsiasi cosa sul documento caricato.",
+    "error_message": "Spiacente, si è verificato un errore. Riprova."
+  },
+  "Planning": {
+    "configure_title": "Configura il tuo Piano",
+    "exam_date": "Data dell'esame",
+    "hours_per_day": "Ore di studio al giorno",
+    "generate_button": "Genera programma",
+    "generating": "Creazione del piano...",
+    "your_plan": "Il Tuo Piano di Studio",
+    "regenerate": "Rigenerare"
+  },
+  "Flashcards": {
+    "front": "Domanda",
+    "back": "Risposta",
+    "show_back": "Mostra Risposta",
+    "show_front": "Mostra Domanda",
+    "completed": "Revisione Completata!",
+    "restart": "Ricominciare"
+  }
+}

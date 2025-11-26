@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Clock, BarChart, BookOpen, Brain } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface AnalysisViewProps {
   analysis: {
@@ -14,13 +15,15 @@ interface AnalysisViewProps {
 }
 
 export function AnalysisView({ analysis, onStartQuiz }: AnalysisViewProps) {
+  const t = useTranslations("Analysis");
+
   return (
     <div className="space-y-6 w-full max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
             <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                    <BarChart className="w-4 h-4" /> Difficulty
+                    <BarChart className="w-4 h-4" /> {t('difficulty')}
                 </CardTitle>
             </CardHeader>
             <CardContent>
@@ -30,7 +33,7 @@ export function AnalysisView({ analysis, onStartQuiz }: AnalysisViewProps) {
         <Card>
             <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                    <Clock className="w-4 h-4" /> Study Time
+                    <Clock className="w-4 h-4" /> {t('study_time')}
                 </CardTitle>
             </CardHeader>
             <CardContent>
@@ -40,7 +43,7 @@ export function AnalysisView({ analysis, onStartQuiz }: AnalysisViewProps) {
         <Card>
             <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                    <BookOpen className="w-4 h-4" /> Concepts
+                    <BookOpen className="w-4 h-4" /> {t('concepts')}
                 </CardTitle>
             </CardHeader>
             <CardContent>
@@ -51,7 +54,7 @@ export function AnalysisView({ analysis, onStartQuiz }: AnalysisViewProps) {
 
       <Card>
         <CardHeader>
-          <CardTitle>Summary</CardTitle>
+          <CardTitle>{t('summary')}</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="leading-relaxed text-muted-foreground">
@@ -62,7 +65,7 @@ export function AnalysisView({ analysis, onStartQuiz }: AnalysisViewProps) {
 
       <Card>
         <CardHeader>
-          <CardTitle>Key Concepts</CardTitle>
+          <CardTitle>{t('concepts')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2">
@@ -77,10 +80,9 @@ export function AnalysisView({ analysis, onStartQuiz }: AnalysisViewProps) {
 
       <div className="flex justify-center pt-4">
         <Button size="lg" onClick={onStartQuiz} className="gap-2">
-            <Brain className="w-5 h-5" /> Start Generated Quiz
+            <Brain className="w-5 h-5" /> {t('start_quiz')}
         </Button>
       </div>
     </div>
   );
 }
-

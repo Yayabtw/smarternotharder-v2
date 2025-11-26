@@ -4,11 +4,13 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { CheckCircle2, XCircle, ArrowRight, RotateCcw } from "lucide-react";
+import { CheckCircle2, XCircle, ArrowRight, RotateCcw, HelpCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface Question {
   id: number;
+  type: string; // "multiple_choice" | "true_false"
   question: string;
   options: string[];
   correct_answer: string;
@@ -16,11 +18,12 @@ interface Question {
 }
 
 interface QuizViewProps {
-  questions: { questions: Question[] }; // Matching the API response structure
+  questions: { questions: Question[] };
   onReset: () => void;
 }
 
 export function QuizView({ questions: quizData, onReset }: QuizViewProps) {
+  const t = useTranslations("Quiz");
   const questions = quizData.questions;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -35,7 +38,11 @@ export function QuizView({ questions: quizData, onReset }: QuizViewProps) {
     if (isAnswered) return;
     setSelectedOption(option);
     setIsAnswered(true);
-    if (option === currentQuestion.correct_answer) {
+    
+    // Normalize comparison for True/False (case insensitive)
+    const isCorrect = option.toLowerCase() === currentQuestion.correct_answer.toLowerCase();
+    
+    if (isCorrect) {
       setScore(score + 1);
     }
   };
@@ -54,20 +61,20 @@ export function QuizView({ questions: quizData, onReset }: QuizViewProps) {
     return (
       <Card className="w-full max-w-2xl mx-auto text-center p-8">
         <CardHeader>
-          <CardTitle className="text-3xl">Quiz Completed!</CardTitle>
+          <CardTitle className="text-3xl">{t('title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="text-6xl font-bold text-primary">
             {Math.round((score / questions.length) * 100)}%
           </div>
           <p className="text-xl text-muted-foreground">
-            You answered {score} out of {questions.length} questions correctly.
+            {t('score')}: {score} / {questions.length}
           </p>
           <Progress value={(score / questions.length) * 100} className="h-3 w-full" />
         </CardContent>
         <CardFooter className="justify-center pt-4">
           <Button onClick={onReset} size="lg" className="gap-2">
-            <RotateCcw className="w-4 h-4" /> Try Another Document
+            <RotateCcw className="w-4 h-4" /> {t('try_another')}
           </Button>
         </CardFooter>
       </Card>
@@ -77,25 +84,39 @@ export function QuizView({ questions: quizData, onReset }: QuizViewProps) {
   return (
     <div className="w-full max-w-2xl mx-auto space-y-6">
       <div className="flex justify-between items-center text-sm text-muted-foreground mb-2">
-        <span>Question {currentIndex + 1} of {questions.length}</span>
+        <span className="flex items-center gap-2">
+            Question {currentIndex + 1} / {questions.length}
+            {currentQuestion.type === 'true_false' && (
+                <span className="text-xs bg-secondary px-2 py-0.5 rounded-full font-mono">Vrai/Faux</span>
+            )}
+        </span>
         <span>Score: {score}</span>
       </div>
       <Progress value={progress} className="h-2" />
 
       <Card className="mt-4">
         <CardHeader>
-          <CardTitle className="text-xl leading-relaxed">
+          <CardTitle className="text-xl leading-relaxed flex gap-3">
+            <HelpCircle className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
             {currentQuestion.question}
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className={cn(
+            "space-y-3",
+            currentQuestion.type === 'true_false' ? "grid grid-cols-2 gap-4 space-y-0" : ""
+        )}>
           {currentQuestion.options.map((option, index) => {
             const isSelected = selectedOption === option;
-            const isCorrect = option === currentQuestion.correct_answer;
+            // Loose comparison for flexibility
+            const isCorrect = option.toLowerCase() === currentQuestion.correct_answer.toLowerCase();
             
             let variant = "outline";
-            let className = "justify-start text-left h-auto py-4 px-6 text-base hover:bg-accent hover:text-accent-foreground";
+            let className = "justify-start text-left h-auto py-4 px-6 text-base hover:bg-accent hover:text-accent-foreground transition-all";
             
+            if (currentQuestion.type === 'true_false') {
+                className = "justify-center text-center font-bold text-lg py-8";
+            }
+
             if (isAnswered) {
               if (isCorrect) {
                 className += " bg-green-500/20 border-green-500 text-green-500 hover:bg-green-500/20 hover:text-green-500";
@@ -117,10 +138,14 @@ export function QuizView({ questions: quizData, onReset }: QuizViewProps) {
                 disabled={isAnswered}
               >
                 <div className="flex items-center w-full">
-                    <span className="mr-4 opacity-50 font-mono text-sm">{String.fromCharCode(65 + index)}.</span>
-                    <span className="flex-1">{option}</span>
-                    {isAnswered && isCorrect && <CheckCircle2 className="w-5 h-5 ml-2" />}
-                    {isAnswered && isSelected && !isCorrect && <XCircle className="w-5 h-5 ml-2" />}
+                    {currentQuestion.type !== 'true_false' && (
+                        <span className="mr-4 opacity-50 font-mono text-sm">{String.fromCharCode(65 + index)}.</span>
+                    )}
+                    <span className={currentQuestion.type === 'true_false' ? "mx-auto" : "flex-1"}>
+                        {option}
+                    </span>
+                    {isAnswered && isCorrect && <CheckCircle2 className="w-5 h-5 ml-2 flex-shrink-0" />}
+                    {isAnswered && isSelected && !isCorrect && <XCircle className="w-5 h-5 ml-2 flex-shrink-0" />}
                 </div>
               </Button>
             );
@@ -128,8 +153,10 @@ export function QuizView({ questions: quizData, onReset }: QuizViewProps) {
         </CardContent>
         <CardFooter className="flex flex-col items-stretch gap-4 pt-2">
             {isAnswered && (
-                <div className="bg-muted/50 p-4 rounded-lg text-sm animate-in fade-in slide-in-from-top-2">
-                    <span className="font-semibold block mb-1">Explanation:</span>
+                <div className="bg-muted/50 p-4 rounded-lg text-sm animate-in fade-in slide-in-from-top-2 border-l-4 border-primary">
+                    <span className="font-semibold block mb-1 flex items-center gap-2">
+                        {t('explanation')}
+                    </span>
                     {currentQuestion.explanation}
                 </div>
             )}
@@ -141,7 +168,7 @@ export function QuizView({ questions: quizData, onReset }: QuizViewProps) {
                     size="lg"
                     className="gap-2"
                 >
-                    {currentIndex < questions.length - 1 ? "Next Question" : "Finish Quiz"} 
+                    {currentIndex < questions.length - 1 ? t('next') : t('finish')} 
                     <ArrowRight className="w-4 h-4" />
                 </Button>
             </div>
@@ -150,4 +177,3 @@ export function QuizView({ questions: quizData, onReset }: QuizViewProps) {
     </div>
   );
 }
-

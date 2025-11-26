@@ -1,0 +1,69 @@
+{
+  "HomePage": {
+    "title": "Master Your Coursework With AI",
+    "subtitle": "Upload, Analyze, Revise.",
+    "description": "Get instant summaries, key concepts, and personalized quizzes to retain more in less time.",
+    "upload_button": "Analyze Document",
+    "processing": "Analyzing document...",
+    "processing_desc": "Extracting key concepts and difficulty levels.",
+    "language_label": "Language",
+    "tab_analysis": "Analysis",
+    "tab_chat": "AI Chat",
+    "tab_quiz": "Quiz",
+    "tab_planning": "Planning",
+    "tab_flashcards": "Flashcards",
+    "generating_quiz": "Generating your personalized quiz...",
+    "quiz_error": "Could not generate quiz. Please try again.",
+    "generating_flashcards": "Generating flashcards...",
+    "flashcards_error": "Could not generate flashcards."
+  },
+  "Upload": {
+    "title": "Upload Course Material (PDF)",
+    "drag_drop": "Drag & drop your file here or click to select",
+    "or_click": "or click to select",
+    "analyze": "Analyze Document",
+    "processing": "Processing...",
+    "upload_failed": "Upload failed. Please try again."
+  },
+  "Analysis": {
+    "difficulty": "Difficulty",
+    "study_time": "Study Time",
+    "concepts": "Concepts",
+    "summary": "Summary",
+    "start_quiz": "Start AI Quiz"
+  },
+  "Quiz": {
+    "title": "Generated Quiz",
+    "score": "Your Score",
+    "current_score": "Current Score",
+    "question": "Question",
+    "try_another": "Try Another Document",
+    "next": "Next Question",
+    "finish": "Finish Quiz",
+    "explanation": "Explanation"
+  },
+  "Chat": {
+    "title": "Chat with your Document",
+    "placeholder": "Ask a question about the course...",
+    "send": "Send",
+    "empty_state": "Start the conversation! Ask anything about the uploaded document.",
+    "error_message": "Sorry, I encountered an error. Please try again."
+  },
+  "Planning": {
+    "configure_title": "Configure your Study Plan",
+    "exam_date": "Exam Date",
+    "hours_per_day": "Hours to study per day",
+    "generate_button": "Generate Schedule",
+    "generating": "Creating your plan...",
+    "your_plan": "Your Personalized Study Plan",
+    "regenerate": "Regenerate"
+  },
+  "Flashcards": {
+    "front": "Front",
+    "back": "Back",
+    "show_back": "Show Answer",
+    "show_front": "Show Question",
+    "completed": "Review Completed!",
+    "restart": "Restart Review"
+  }
+}

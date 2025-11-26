@@ -1,0 +1,69 @@
+{
+  "HomePage": {
+    "title": "Maîtrisez vos cours avec l'IA",
+    "subtitle": "Uploadez, Analysez, Révisez.",
+    "description": "Obtenez des résumés instantanés, des concepts clés et des quiz personnalisés pour retenir plus en moins de temps.",
+    "upload_button": "Analyser un document",
+    "processing": "Analyse en cours...",
+    "processing_desc": "Extraction des concepts et évaluation de la difficulté.",
+    "language_label": "Langue",
+    "tab_analysis": "Analyse",
+    "tab_chat": "Chat IA",
+    "tab_quiz": "Quiz",
+    "tab_planning": "Planning",
+    "tab_flashcards": "Flashcards",
+    "generating_quiz": "Génération de votre quiz personnalisé...",
+    "quiz_error": "Impossible de générer le quiz. Veuillez réessayer.",
+    "generating_flashcards": "Génération des flashcards...",
+    "flashcards_error": "Impossible de générer les flashcards."
+  },
+  "Upload": {
+    "title": "Ajouter un cours (PDF)",
+    "drag_drop": "Déposez votre fichier ici ou cliquez pour sélectionner",
+    "or_click": "ou cliquez pour sélectionner",
+    "analyze": "Analyser",
+    "processing": "Traitement...",
+    "upload_failed": "Échec de l'envoi. Veuillez réessayer."
+  },
+  "Analysis": {
+    "difficulty": "Difficulté",
+    "study_time": "Temps d'étude",
+    "concepts": "Concepts",
+    "summary": "Résumé",
+    "start_quiz": "Lancer le Quiz IA"
+  },
+  "Quiz": {
+    "title": "Quiz Généré",
+    "score": "Votre Score",
+    "current_score": "Score Actuel",
+    "question": "Question",
+    "try_another": "Essayer un autre document",
+    "next": "Question Suivante",
+    "finish": "Terminer le Quiz",
+    "explanation": "Explication"
+  },
+  "Chat": {
+    "title": "Discutez avec votre Document",
+    "placeholder": "Posez une question sur le cours...",
+    "send": "Envoyer",
+    "empty_state": "Commencez la conversation ! Demandez n'importe quoi sur le document.",
+    "error_message": "Désolé, une erreur est survenue. Veuillez réessayer."
+  },
+  "Planning": {
+    "configure_title": "Configurez votre Planning",
+    "exam_date": "Date de l'examen",
+    "hours_per_day": "Heures de révision par jour",
+    "generate_button": "Générer le planning",
+    "generating": "Création du planning...",
+    "your_plan": "Votre Planning de Révision",
+    "regenerate": "Régénérer"
+  },
+  "Flashcards": {
+    "front": "Question",
+    "back": "Réponse",
+    "show_back": "Voir la Réponse",
+    "show_front": "Voir la Question",
+    "completed": "Révision Terminée !",
+    "restart": "Recommencer"
+  }
+}

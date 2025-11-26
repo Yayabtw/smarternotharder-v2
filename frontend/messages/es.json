@@ -1,0 +1,69 @@
+{
+  "HomePage": {
+    "title": "Domina tus Cursos con IA",
+    "subtitle": "Sube, Analiza, Revisa.",
+    "description": "Obtén resúmenes instantáneos, conceptos clave y cuestionarios personalizados para retener más en menos tiempo.",
+    "upload_button": "Analizar documento",
+    "processing": "Analizando...",
+    "processing_desc": "Extrayendo conceptos y evaluando dificultad.",
+    "language_label": "Idioma",
+    "tab_analysis": "Análisis",
+    "tab_chat": "Chat IA",
+    "tab_quiz": "Cuestionario",
+    "tab_planning": "Planificación",
+    "tab_flashcards": "Flashcards",
+    "generating_quiz": "Generando tu cuestionario personalizado...",
+    "quiz_error": "No se pudo generar el cuestionario. Inténtalo de nuevo.",
+    "generating_flashcards": "Generando flashcards...",
+    "flashcards_error": "No se pudo generar flashcards."
+  },
+  "Upload": {
+    "title": "Subir Material (PDF)",
+    "drag_drop": "Arrastra tu archivo aquí o haz clic para seleccionar",
+    "or_click": "o haz clic para seleccionar",
+    "analyze": "Analizar",
+    "processing": "Procesando...",
+    "upload_failed": "Error al subir. Inténtalo de nuevo."
+  },
+  "Analysis": {
+    "difficulty": "Dificultad",
+    "study_time": "Tiempo de estudio",
+    "concepts": "Conceptos",
+    "summary": "Resumen",
+    "start_quiz": "Iniciar Quiz IA"
+  },
+  "Quiz": {
+    "title": "Quiz Generado",
+    "score": "Tu Puntuación",
+    "current_score": "Puntuación Actual",
+    "question": "Pregunta",
+    "try_another": "Probar otro documento",
+    "next": "Siguiente Pregunta",
+    "finish": "Terminar Quiz",
+    "explanation": "Explicación"
+  },
+  "Chat": {
+    "title": "Chatea con tu Documento",
+    "placeholder": "Haz una pregunta sobre el curso...",
+    "send": "Enviar",
+    "empty_state": "¡Comienza la conversación! Pregunta cualquier cosa sobre el documento subido.",
+    "error_message": "Lo siento, encontré un error. Inténtalo de nuevo."
+  },
+  "Planning": {
+    "configure_title": "Configura tu Plan",
+    "exam_date": "Fecha del examen",
+    "hours_per_day": "Horas de estudio por día",
+    "generate_button": "Generar horario",
+    "generating": "Creando tu plan...",
+    "your_plan": "Tu Plan de Estudio",
+    "regenerate": "Regenerar"
+  },
+  "Flashcards": {
+    "front": "Pregunta",
+    "back": "Respuesta",
+    "show_back": "Mostrar Respuesta",
+    "show_front": "Mostrar Pregunta",
+    "completed": "¡Revisión Completada!",
+    "restart": "Reiniciar"
+  }
+}
